@@ -1,6 +1,6 @@
 Phen_gs_adj_map <- function (x, dates, nGS, rge, th) {
   h=2 # setea el hemisferio 2
-  options(warn=-1) # elimina los warnings de la creaciÛn de la tabla de DOY y DGS
+  options(warn=-1) # elimina los warnings de la creaci√≥n de la tabla de DOY y DGS
   if (length(rge) != 2) {
     stop("rge must be a vector of length 2")
   }
@@ -56,14 +56,14 @@ Phen_gs_adj_map <- function (x, dates, nGS, rge, th) {
   fila <- Ref[first.DOGS:last.DOGS] ###### MO NUEVO = CREA EN UN VECTOR LOS DATOS REORDENADOS
   
   # Checking if there are more than one max
-  p <- max(fila) # Calcula el/los m·ximo(s)
-  pp <- floor(length(fila[which(fila==p)])/2)+1 # Crea un vector de extensiÛn 50%+1 para centrar
+  p <- max(fila) # Calcula el/los m√°ximo(s)
+  pp <- floor(length(fila[which(fila==p)])/2)+1 # Crea un vector de extensi√≥n 50%+1 para centrar
   
   
-  if (pp>1){ # Si hay m·s de un m·ximo, deje el DOY del centro (50%+1)
+  if (pp>1){ # Si hay m√°s de un m√°ximo, deje el DOY del centro (50%+1)
     peak.vector <- which.max(fila)+pp-1
     dGS_max <- dGS[peak.vector]
-  } else { # Si no, deje el DOY del ˙nico valor m·ximo
+  } else { # Si no, deje el DOY del √∫nico valor m√°ximo
     peak.vector <- which.max(fila)
     dGS_max <- dGS[peak.vector]
   }
@@ -140,14 +140,15 @@ Phen_gs_adj_map <- function (x, dates, nGS, rge, th) {
   
   ## Checking if there are more than one max ... again
   set<- phen.adj[7:19] # Extrae un vector del centro de la phen, por si hay peaks separados, los hay.
+  # la forma de extraer deberia ser mas din√°mica si el nGS cambia a por ejemplo 365, este est√° pensado solo para GIMMS
   p2 <- max(set) # Calcula el peak del centro
-  pp2 <- floor(length(phen.adj[which(set==p2)])/2) # Crea un vector de extensiÛn 50%+1 para centrar
+  pp2 <- floor(length(phen.adj[which(set==p2)])/2) # Crea un vector de extensi√≥n 50%+1 para centrar
   
-  if (pp2>1){ # Si hay m·s de un m·ximo, deje el DOY del centro (50%+1)
+  if (pp2>1){ # Si hay m√°s de un m√°ximo, deje el DOY del centro (50%+1)
     peak.vector.2 <- which.max(set)+pp2-1
     peak.vector.3 <- 6 + peak.vector.2
     ndGS_max <- ndGS[peak.vector.3]
-  } else { # Si no, deje el DOY del ˙nico valor m·ximo
+  } else { # Si no, deje el DOY del √∫nico valor m√°ximo
     peak.vector.2 <- which.max(set)
     peak.vector.3 <- 6 + peak.vector.2
     ndGS_max <- ndGS[peak.vector.3]
@@ -199,7 +200,7 @@ Phen_gs_adj_map <- function (x, dates, nGS, rge, th) {
     aft <- phen.adj[peak.vector.3:nGS] # Extrae un vector desde el peak (incluido) hasta el final
     eos.p <- ((max(phen.adj,na.rm = T)-min(aft,na.rm = T))*th)+min(aft,na.rm = T) # Calcula TH
     eos.val <- aft[which(aft<=eos.p)[1]] # Extrae el primer valor donde se cumpla < que el TH
-    eos.tim <- last(which(aft==eos.val)) # Busca el ˙ltimo DGS en la serie corta
+    eos.tim <- last(which(aft==eos.val)) # Busca el √∫ltimo DGS en la serie corta
     eos.time <- (nGS-length(aft))+(as.numeric(eos.tim)) # Calcula el DGS en la serie original
     ndGS_eos <- ndGS[eos.time] # Extrae el DOY de la tabla
     
@@ -209,7 +210,7 @@ Phen_gs_adj_map <- function (x, dates, nGS, rge, th) {
   }
   
   #Plot check
-  plot(y=phen.adj,x=dGS,type="b",main=z)
+  plot(y=phen.adj,x=dGS,type="b")
   abline(v=c(ndGS_sos,ndGS_max,ndGS_eos),col=c("blue","green","red"))
   abline(h=sos.p,lty=3,col="blue")
   abline(h=sos.val,col="blue")
