@@ -5,7 +5,7 @@ Phen_gs_adj_map <- function (x, dates, nGS, rge, th) {
     stop("rge must be a vector of length 2")
   }
   if (rge[1] > rge[2]) {
-    stop("rge vector order must be minimum/maximum")
+    stop("rge vector order must be minimum/maximum") 
   }
   if (length(dates) != length(x)) {
     stop("N of dates and files do not match")
